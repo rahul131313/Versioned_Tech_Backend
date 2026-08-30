@@ -1,7 +1,10 @@
 package com.example.versioned_hrms.controller;
 
+import com.example.versioned_hrms.dto.request.EmployeeRequest;
+import com.example.versioned_hrms.dto.response.EmployeeResponse;
 import com.example.versioned_hrms.entity.Employee;
 import com.example.versioned_hrms.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +22,9 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee create(@RequestBody Employee employee) {
-        return employeeService.create(employee);
+    public EmployeeResponse create(
+            @Valid @RequestBody EmployeeRequest request) {
+        return employeeService.create(request);
     }
 
     @GetMapping
