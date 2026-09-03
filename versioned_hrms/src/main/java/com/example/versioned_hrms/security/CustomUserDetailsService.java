@@ -1,13 +1,10 @@
-package com.example.versioned_hrms.config;
+package com.example.versioned_hrms.security;
 
 import com.example.versioned_hrms.entity.User;
 import com.example.versioned_hrms.repositary.UserRepository;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service

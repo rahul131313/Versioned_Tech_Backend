@@ -2,6 +2,7 @@ package com.example.versioned_hrms.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,15 +20,43 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
+
                         .requestMatchers(
                                 "/actuator/health"
                         ).permitAll()
-                        .anyRequest().authenticated()
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/employees/**"
+                        ).hasAnyRole(
+                                "EMPLOYEE",
+                                "MANAGER",
+                                "ADMIN"
+                        )
+
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/employees/**"
+                        ).hasRole("ADMIN")
+
+                        .requestMatchers(
+                                HttpMethod.PUT,
+                                "/api/employees/**"
+                        ).hasRole("ADMIN")
+
+                        .requestMatchers(
+                                HttpMethod.DELETE,
+                                "/api/employees/**"
+                        ).hasRole("ADMIN")
+
+                        .anyRequest()
+                        .authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
+
 
     @Bean
     PasswordEncoder passwordEncoder() {
