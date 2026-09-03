@@ -52,7 +52,11 @@ public class SecurityConfig {
                         .anyRequest()
                         .authenticated()
                 )
-                .httpBasic(Customizer.withDefaults());
+                //.httpBasic(Customizer.withDefaults());
+                .formLogin(Customizer.withDefaults())
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout")
+                );
 
         return http.build();
     }
