@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: versioned_hrms
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/versioned_hrms
+    username: postgres
+    password: Rahul@1304
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  session:
+    store-type: redis
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+server:
+  port: 8080
+
+#logging:
+#  level:
+#    root: INFO
+#    com.example.versioned_hrms: DEBUG
+
+logging:
+  level:
+    root: INFO
+    com.example.versioned_hrms: DEBUG
+    org.springframework.session: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.data.redis: DEBUG
